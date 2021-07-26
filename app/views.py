@@ -46,18 +46,14 @@ def view_record(request, record_id):
 
 def edit_record(request, record_id):
     if request.method == 'POST':
-        record = WikiPage.objects.get(pk=record_id)
-        next_version = record.current_version + 1
-        WikiPage.objects.create(title=request.POST.get("title"),
-                                content=request.POST.get("content"),
-                                current_version=next_version)
-        content = {
-            'title': f'Редагування сторінки {record_id}',
-            'record': record,
-        }
-        return render(request, 'record.html', content)
+        last_version = PageVersion.objects.get(id=record_id)
+        new_version = int(last_version.id) + 1
+        PageVersion.objects.create(title=request.POST.get("title"),
+                                   content=request.POST.get("content"),
+                                   current_version=new_version)
+        return redirect('home')
     else:
-        record = WikiPage.objects.get(pk=record_id)
+        record = PageVersion.objects.get(pk=record_id)
         content = {
             'title': f'Редагування сторінки {record_id}',
             'record': record,
@@ -66,6 +62,6 @@ def edit_record(request, record_id):
 
 
 def delete_record(request, record_id):
-    record = WikiPage.objects.get(pk=record_id)
+    record = PageVersion.objects.get(pk=record_id)
     record.delete()
     return redirect('home')

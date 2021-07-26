@@ -6,6 +6,7 @@
 
 {% block body %}
     {% for i in current_version %}
+        {% if i.current_version ==  i.active_version%}
 
         <h4>ID сторінки:</h4>
         <div>
@@ -40,9 +41,10 @@
 
 
         <div>
-                <a href="/edit/{{ record.id }}" class="btn btn-primary">Редагувати</a>
-                <a href="/delete/{{ record.id }}" class="btn btn-danger">Видалити</a>
+                <a href="/edit/{{ i.id }}" class="btn btn-primary">Редагувати</a>
+                <a href="/delete/{{ i.id }}" class="btn btn-danger">Видалити</a>
         </div>
+        {% endif %}
     {% endfor %}
 
 
