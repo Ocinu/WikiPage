@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {{ title }}
+{% endblock %}
+
+{% block body %}
+    {% for i in current_version %}
+
+        <h4>ID сторінки:</h4>
+        <div>
+            {{ i.id}}
+        </div>
+        <br>
+
+        <h4>Заголовок:</h4>
+        <div>
+            {{ i.title }}
+        </div>
+        <br>
+
+        <h4>Контент:</h4>
+        <div>
+            {{ i.content }}
+        </div>
+        <br>
+
+        <h4>Поточна версія:</h4>
+        <div>
+            {{ i.current_version }}
+        </div>
+        <br>
+
+        <h4>Активна версія:</h4>
+        <div>
+            {{ i.active_version }}
+        </div>
+        <br>
+
+
+
+        <div>
+                <a href="/edit/{{ record.id }}" class="btn btn-primary">Редагувати</a>
+                <a href="/delete/{{ record.id }}" class="btn btn-danger">Видалити</a>
+        </div>
+    {% endfor %}
+
+
+
+{% endblock %}

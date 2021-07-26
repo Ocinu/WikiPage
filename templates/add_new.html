@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Додати сторінку
+{% endblock %}
+
+{% block body %}
+    <h1>Додати нову сторінку</h1>
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+
+        <div class="mb-3">
+            <label for={{ form.title.id_for_label }}>Заголовок</label>
+            {{ form.title }}
+            <div class = "invalid-feedback">
+                 {{ form.title.errors }}
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for={{ form.content.id_for_label }}>Опис сторінки</label>
+            {{ form.content }}
+            <div class = "invalid-feedback">
+                 {{ form.content.errors }}
+            </div>
+        </div>
+
+
+        <button type="submit" class="btn btn-primary">Додати нову сторінку</button>
+    </form>
+{% endblock %}

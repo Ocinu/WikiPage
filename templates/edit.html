@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {{ title }}
+{% endblock %}
+
+{% block body %}
+     <form method="POST">
+        {% csrf_token %}
+        <p>
+            <label>Заголовок:</label><br>
+            <input type="text" class="form-control" name="title" value="{{record.title}}" />
+        </p>
+        <p>
+            <label>Контент:</label><br>
+            <input type="text" class="form-control" name="content" value="{{record.content}}" />
+        </p>
+        <input type="submit" value="Зберегти" class="btn btn-primary">
+    </form>
+{% endblock %}
