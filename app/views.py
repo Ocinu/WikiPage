@@ -17,11 +17,12 @@ def add_new_record(request):
         form = CreateNewPage(request.POST)
         if form.is_valid():
             data = form.cleaned_data
-            PageVersion.objects.create(title=data['title'],
-                                       content=data['content'],
-                                       current_version=1,
-                                       )
+            version = PageVersion.objects.create(title=data['title'],
+                                                 content=data['content'],
+                                                 current_version=1,
+                                                 )
             WikiPage.objects.create(title=data['title'],
+                                    version=version
                                     )
         return redirect('home')
     else:
@@ -35,7 +36,7 @@ def add_new_record(request):
 
 def view_record(request, record_id):
     record = WikiPage.objects.get(pk=record_id)
-    current_version = PageVersion.objects.filter(title=record.title)
+    current_version = record.versions
     content = {
         'title': record.title,
         'record': record,
@@ -48,9 +49,13 @@ def edit_record(request, record_id):
     if request.method == 'POST':
         last_version = PageVersion.objects.get(id=record_id)
         new_version = int(last_version.id) + 1
-        PageVersion.objects.create(title=request.POST.get("title"),
-                                   content=request.POST.get("content"),
-                                   current_version=new_version)
+        new_version = PageVersion.objects.create(title=request.POST.get("title"),
+                                                 content=request.POST.get("content"),
+                                                 current_version=new_version,
+                                                 active_version=new_version)
+        page = WikiPage.objects.get(title=new_version.title)
+        page.versions = new_version
+        page.save()
         return redirect('home')
     else:
         record = PageVersion.objects.get(pk=record_id)

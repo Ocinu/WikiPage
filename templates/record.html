@@ -5,47 +5,42 @@
 {% endblock %}
 
 {% block body %}
-    {% for i in current_version %}
-        {% if i.current_version ==  i.active_version%}
-
-        <h4>ID сторінки:</h4>
+    <h4>ID сторінки:</h4>
         <div>
-            {{ i.id}}
+            {{ current_version.id}}
         </div>
         <br>
 
         <h4>Заголовок:</h4>
         <div>
-            {{ i.title }}
+            {{ current_version.title }}
         </div>
         <br>
 
         <h4>Контент:</h4>
         <div>
-            {{ i.content }}
+            {{ current_version.content }}
         </div>
         <br>
 
         <h4>Поточна версія:</h4>
         <div>
-            {{ i.current_version }}
+            {{ current_version.current_version }}
         </div>
         <br>
 
         <h4>Активна версія:</h4>
         <div>
-            {{ i.active_version }}
+            {{ current_version.active_version }}
         </div>
         <br>
 
 
 
         <div>
-                <a href="/edit/{{ i.id }}" class="btn btn-primary">Редагувати</a>
-                <a href="/delete/{{ i.id }}" class="btn btn-danger">Видалити</a>
+                <a href="/edit/{{ current_version.id }}" class="btn btn-primary">Редагувати</a>
+                <a href="/delete/{{ current_version.id }}" class="btn btn-danger">Видалити</a>
         </div>
-        {% endif %}
-    {% endfor %}
 
 
 
